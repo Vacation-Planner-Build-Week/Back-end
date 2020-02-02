@@ -13,24 +13,24 @@ function find() {
 }
 
 function findBy(filter) {
-    return db('messages')
+    return db('vacations')
         .where(filter)
         .first();
 }
 
-async function add(message) {
-    const [message_id] = await db('messages').insert(message, 'message_id');
-    return findById(message_id)
+async function add(vacation) {
+    const [vacation_id] = await db('vacations').insert(vacation, 'vacation_id');
+    return findById(vacation_id)
 }
 
-function findById(message_id) {
-    return db('messages')
-        .where({message_id})
+function findById(vacation_id) {
+    return db('vacations')
+        .where({vacation_id})
         .first();
 }
 
-function remove(message_id) {
-    return db('messages')
-        .where({message_id})
+function remove(vacation_id) {
+    return db('vacations')
+        .where({vacation_id})
         .del();
 }
