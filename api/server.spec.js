@@ -6,8 +6,8 @@ const cleaner = require('knex-cleaner');
 let token;
 
 const user = {
-    userName: "jacob washburn",
-    userPassword: "password"
+    user_name: "jacob washburn",
+    user_password: "password"
 };
 
 describe('server', () => {
@@ -57,7 +57,7 @@ describe('register', () => {
             .send(user)
             .then(res => {
                 expect(res.status).toBe(201);
-                expect(res.body.userName).toBe(user.userName);
+                expect(res.body.user_name).toBe(user.user_name);
             });
     });
     it('password has been changed/hashed', () => {
@@ -65,7 +65,7 @@ describe('register', () => {
             .post('/api/auth/register')
             .send(user)
             .then(res => {
-                expect(res.body.userPassword.length).toBeGreaterThan(user.userPassword.length);
+                expect(res.body.user_password.length).toBeGreaterThan(user.user_password.length);
             });
     });
 });
@@ -76,7 +76,7 @@ describe('login', () => {
             .post('/api/auth/login')
             .send(user)
             .then(res => {
-                expect(res.body.message).toBe(`Welcome ${user.userName}!`);
+                expect(res.body.message).toBe(`Welcome ${user.user_name}!`);
             });
     });
     it('status should be 200', () => {
@@ -111,15 +111,15 @@ describe('users', () => {
                 expect(res.body.users.length).toBe(1);
             });
     });
-    it('first username should === user.username', () => {
+    it('first user name should === user.user_name', () => {
         return request(server)
             .get('/api/users')
             .set('Authorization', token)
             .then(res => {
                 expect(res.status).toBe(200);
                 expect(res.body.users).toBeDefined();
-                expect(res.body.users[0].userName).toBeDefined();
-                expect(res.body.users[0].userName).toBe(user.userName);
+                expect(res.body.users[0].user_name).toBeDefined();
+                expect(res.body.users[0].user_name).toBe(user.user_name);
             });
     });
     // it('')

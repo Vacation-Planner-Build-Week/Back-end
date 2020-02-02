@@ -1,17 +1,17 @@
 exports.up = async function(knex) {
     return knex.schema.createTable('dates', tbl => {
-        tbl.increments('dateId');
-        tbl.date('startDate')
+        tbl.increments('date_id');
+        tbl.date('start_date')
             .notNullable();
-        tbl.date('endDate')
+        tbl.date('end_date')
             .notNullable();
-        tbl.integer('vacationId')
+        tbl.integer('vacation_id')
             .unsigned()
-            .references('vacationId')
+            .references('vacation_id')
             .inTable('vacations')
             .onUpdate('CASCADE')
-            .onDelete('CASCADE')
             .notNullable();
+        tbl.timestamps(true,true);
     })
 };
 

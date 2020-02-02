@@ -1,10 +1,11 @@
 exports.up = async function(knex) {
     return knex.schema.createTable('users', tbl => {
-        tbl.increments('userId');
-        tbl.string('userName', 80)
+        tbl.increments('user_id');
+        tbl.string('user_name', 80)
             .notNullable();
-        tbl.string('userPassword', 250)
+        tbl.string('user_password', 250)
             .notNullable();
+        tbl.timestamps(true,true);
     })
 };
 
