@@ -3,8 +3,8 @@ const Users = require('./users-model');
 const cleaner = require('knex-cleaner');
 
 const newUser = {
-    userName: 'jacob',
-    userPassword: 'aaaa'
+    user_name: 'jacob',
+    user_password: 'aaaa'
 };
 
 describe('users model', () => {
@@ -34,8 +34,8 @@ describe('users model', () => {
         });
         it('adds a new user then deletes it', async () => {
             const user = await Users.add(newUser);
-            expect(user.userName).toBe('jacob');
-            await Users.remove(user.userId);
+            expect(user.user_name).toBe('jacob');
+            await Users.remove(user.user_id);
             const users = await db('users');
             expect(users).toHaveLength(0);
         });

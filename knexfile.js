@@ -4,12 +4,8 @@ module.exports = {
 
     development: {
         client: 'postgresql',
-        connection: {
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_DATABASE
-        },
+        useNullAsDefault: true,
+        connection: process.env.DATABASE_URL,
         migrations: {
             directory: './database/migrations',
         },
@@ -20,12 +16,8 @@ module.exports = {
 
     testing: {
         client: 'postgresql',
-        connection: {
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_DATABASE_TESTING
-        },
+        useNullAsDefault: true,
+        connection: process.env.DATABASE_URL_TESTING,
         pool: {
             min: 2,
             max: 10

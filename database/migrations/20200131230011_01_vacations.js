@@ -1,10 +1,11 @@
 exports.up = async function(knex) {
     return knex.schema.createTable('vacations', tbl => {
-        tbl.increments('vacationId');
-        tbl.string('vacationName', 60)
+        tbl.increments('vacation_id');
+        tbl.string('vacation_name', 60)
             .notNullable();
-        tbl.string('vacationDescription', 250)
+        tbl.string('vacation_description', 250)
             .notNullable();
+        tbl.timestamps(true,true);
     })
 };
 

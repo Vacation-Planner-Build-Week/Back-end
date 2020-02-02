@@ -1,22 +1,21 @@
 exports.up = async function(knex) {
     return knex.schema.createTable('comments', tbl => {
-        tbl.increments('commentId');
+        tbl.increments('comment_id');
         tbl.string('comment', 250)
             .notNullable();
-        tbl.integer('vacationId')
+        tbl.integer('vacation_id')
             .unsigned()
-            .references('vacationId')
+            .references('vacation_id')
             .inTable('vacations')
             .onUpdate('CASCADE')
-            .onDelete('CASCADE')
             .notNullable();
-        tbl.integer('userId')
+        tbl.integer('user_id')
             .unsigned()
-            .references('userId')
+            .references('user_id')
             .inTable('users')
             .onUpdate('CASCADE')
-            .onDelete('CASCADE')
             .notNullable();
+        tbl.timestamps(true,true);
     })
 };
 

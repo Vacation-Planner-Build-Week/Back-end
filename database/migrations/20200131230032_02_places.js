@@ -1,16 +1,16 @@
 exports.up = async function(knex) {
     return knex.schema.createTable('places', tbl => {
-        tbl.increments('placesId');
+        tbl.increments('places_id');
         tbl.string('location', 60)
             .notNullable();
-        tbl.integer('dayInLocation');
-        tbl.integer('vacationId')
+        tbl.integer('days_in_location');
+        tbl.integer('vacation_id')
             .unsigned()
-            .references('vacationId')
+            .references('vacation_id')
             .inTable('vacations')
             .onUpdate('CASCADE')
-            .onDelete('CASCADE')
             .notNullable();
+        tbl.timestamps(true,true);
     })
 };
 

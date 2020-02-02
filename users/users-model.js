@@ -19,18 +19,18 @@ function findBy(filter) {
 }
 
 async function add(user) {
-    const [userId] = await db('users').insert(user, 'userId');
-    return findById(userId)
+    const [user_id] = await db('users').insert(user, 'user_id');
+    return findById(user_id)
 }
 
-function findById(userId) {
+function findById(user_id) {
     return db('users')
-        .where({userId})
+        .where({user_id})
         .first();
 }
 
-function remove(userId) {
+function remove(user_id) {
     return db('users')
-        .where({userId})
+        .where({user_id})
         .del();
 }

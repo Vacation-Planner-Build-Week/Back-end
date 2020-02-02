@@ -7,7 +7,7 @@ const db = require('../users/users-model');
 
 router.post('/register', (req, res) => {
     let user = req.body;
-    user.userPassword = bcrypt.hashSync(user.userPassword, 10);
+    user.user_password = bcrypt.hashSync(user.user_password, 10);
     db.add(user)
         .then(addedUser => {
             res.status(201).json(addedUser);
@@ -22,13 +22,13 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    let {userName, userPassword} = req.body;
-    db.findBy({userName})
+    let {user_name, user_password} = req.body;
+    db.findBy({user_name})
         .then(user => {
-            if (user && bcrypt.compareSync(userPassword, user.userPassword)) {
+            if (user && bcrypt.compareSync(user_password, user.user_password)) {
                 const token = signToken(user);
                 res.status(200).json({
-                    message: `Welcome ${user.userName}!`,
+                    message: `Welcome ${user.user_name}!`,
                     token
                 });
             } else {
