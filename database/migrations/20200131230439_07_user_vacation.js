@@ -6,12 +6,14 @@ exports.up = async function(knex) {
             .references('user_id')
             .inTable('users')
             .onUpdate('CASCADE')
+            .onDelete('CASCADE')
             .notNullable();
         tbl.integer('vacation_id')
             .unsigned()
             .references('vacation_id')
             .inTable('vacations')
             .onUpdate('CASCADE')
+            .onDelete('CASCADE')
             .notNullable();
         tbl.timestamps(true,true);
     })
