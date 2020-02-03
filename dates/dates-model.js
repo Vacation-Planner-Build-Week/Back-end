@@ -5,7 +5,8 @@ module.exports = {
     find,
     findBy,
     findById,
-    remove
+    remove,
+    edit
 };
 
 function find() {
@@ -33,4 +34,9 @@ function remove(date_id) {
     return db('dates')
         .where({date_id})
         .del();
+}
+
+function edit(date) {
+    return db('dates')
+        .update(date);
 }
