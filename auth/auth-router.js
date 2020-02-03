@@ -10,7 +10,11 @@ router.post('/register', (req, res) => {
     user.user_password = bcrypt.hashSync(user.user_password, 10);
     db.add(user)
         .then(addedUser => {
-            res.status(201).json(addedUser);
+            const token = signToken(addedUser)
+            res.status(201).json({
+                ...addedUser,
+                token: token
+            });
         })
         .catch(error => {
             console.log('add a user error', error);

@@ -32,4 +32,36 @@ router.get('/:id', (req, res) => {
         });
 });
 
+router.post('/', (req, res) => {
+    const newComment = req.body;
+    db.add(newComment)
+        .then(comment => {
+            if (comment) {
+                res.status(201).json(comment);
+            } else {
+                res.status(500).json({message: 'Could not add that comment'});
+            }
+        })
+        .catch(error => {
+            console.log('add a new comment error', error);
+            res.status(500).json({message: 'There was an error adding a comment.'});
+        });
+});
+
+router.delete('/:id', (req, res) => {
+	const id = req.params.id;
+	db.remove(id)
+        .then(count => {
+            if (count) {
+            	res.status(200).json({message: 'The comment was successfully removed.'})
+            } else {
+            	res.status(500).json({message: 'The comment could not be removed because it did not exist in the database.'})
+            }
+        })
+        .catch(error => {
+            console.log('delete comment error', error);
+            res.status(500).json({message: 'There was an error removing a comment.'})
+        })
+});
+
 module.exports = router;
