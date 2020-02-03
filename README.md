@@ -1,7 +1,7 @@
 Vacation Planner Back-End
 Document URL:
 
-https://documenter.getpostman.com/view/6266544/SWTD9cnL?version=latest
+https://documenter.getpostman.com/view/6266544/SWTD9xBy?version=latest
 
 Base API URL:
 
