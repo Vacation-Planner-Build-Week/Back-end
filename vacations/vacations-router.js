@@ -112,6 +112,22 @@ router.get('/:id/users', (req, res) => {
         });
 });
 
+router.post('/', (req, res) => {
+    const newVacation = req.body;
+    db.add(newVacation)
+        .then(vacation => {
+            if (vacation) {
+                res.status(200).json(vacation);
+            } else {
+                res.status(404).json({message: 'Could not add that vacation.'});
+            }
+        })
+        .catch(error => {
+            console.log('add vacation error', error);
+            res.status(500).json({message: 'There was an error adding vacation.'});
+        });
+});
+
 router.post('/adduser', (req, res) => {
     const user = req.body;
     db.addVacationUser(user)
@@ -125,6 +141,39 @@ router.post('/adduser', (req, res) => {
         .catch(error => {
             console.log('add user to vacationerror', error);
             res.status(500).json({message: 'There was an error adding user to vacation.'});
+        });
+});
+
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const updatedVacation = req.body;
+    db.update(id, updatedVacation)
+        .then(vacation => {
+            if (vacation) {
+                res.status(201).json(vacation);
+            } else {
+                res.status(500).json({message: 'Could not update that vacation'});
+            }
+        })
+        .catch(error => {
+            console.log('update vacation error', error);
+            res.status(500).json({message: 'There was an error updating vacation by id.'});
+        });
+});
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    db.remove(id)
+        .then(count => {
+            if (count) {
+                res.status(200).json({message: 'The vacation was successfully removed.'});
+            } else {
+                res.status(500).json({message: 'The vacation could not be removed because it did not exist in the database.'});
+            }
+        })
+        .catch(error => {
+            console.log('delete vacation error', error);
+            res.status(500).json({message: 'There was an error removing a vacation.'});
         });
 });
 

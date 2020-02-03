@@ -12,16 +12,23 @@ router.post('/register', (req, res) => {
         .then(addedUser => {
             const token = signToken(addedUser)
             res.status(201).json({
-                ...addedUser,
+                greeting: `Welcome ${addedUser.user_name}!`,
+                user_id: addedUser.user_id,
+                user_name: addedUser.user_name,
                 token: token
             });
         })
         .catch(error => {
             console.log('add a user error', error);
-            res.status(500).json({
+            if (error.constraint.includes('unique')) {
+            	res.status(500).json({message:'That user name already exists.', detail: error.detail})
+            } else {
+            	res.status(500).json({
                 message: 'there was an error adding a user.',
                 error: error
             });
+            }
+
         });
 });
 

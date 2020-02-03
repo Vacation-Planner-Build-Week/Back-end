@@ -13,11 +13,13 @@ module.exports = {
 };
 
 function find() {
-    return db('users');
+    return db('users')
+        .select('user_id','user_name');
 }
 
 function findBy(filter) {
     return db('users')
+        .select('user_id','user_name')
         .where(filter)
         .first();
 }
@@ -29,6 +31,7 @@ async function add(user) {
 
 function findById(user_id) {
     return db('users')
+        .select('user_id','user_name')
         .where({user_id})
         .first();
 }
