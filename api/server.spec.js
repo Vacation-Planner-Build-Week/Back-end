@@ -14,7 +14,7 @@ describe('server', () => {
 
     describe('test env', () => {
         it('', () => {
-            expect(process.env.DB_ENV).toBe('testing');
+            expect(process.env.DB_ENV).toBe('localtesting');
         });
     });
     it('runs the server', () => {
@@ -58,14 +58,6 @@ describe('register', () => {
             .then(res => {
                 expect(res.status).toBe(201);
                 expect(res.body.user_name).toBe(user.user_name);
-            });
-    });
-    it('password has been changed/hashed', () => {
-        return request(server)
-            .post('/api/auth/register')
-            .send(user)
-            .then(res => {
-                expect(res.body.user_password.length).toBeGreaterThan(user.user_password.length);
             });
     });
 });
