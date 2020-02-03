@@ -17,16 +17,19 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use('/api/auth', authRouter);
-server.use('/api/users', authenticate, usersRouter);
-server.use('/api/vacations', authenticate, vacationsRouter);
-server.use('/api/dates', authenticate, datesRouter);
-server.use('/api/comments', authenticate, commentsRouter);
-server.use('/api/activities', authenticate, activitiesRouter);
-server.use('/api/messages', authenticate, messagesRouter);
-
 server.get('/', (req, res) => {
     res.status(200).json({api: 'Api running'});
 });
+
+server.use('/api/auth', authRouter);
+server.use(authenticate);
+server.use('/api/users', usersRouter);
+server.use('/api/vacations', vacationsRouter);
+server.use('/api/dates', datesRouter);
+server.use('/api/comments', commentsRouter);
+server.use('/api/activities', activitiesRouter);
+server.use('/api/messages', messagesRouter);
+
+
 
 module.exports = server;
