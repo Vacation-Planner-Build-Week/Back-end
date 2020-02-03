@@ -11,7 +11,8 @@ module.exports = {
     findVacationActivities,
     findVacationDates,
     findVacationUsers,
-    addVacationUser
+    addVacationUser,
+    update
 };
 
 function find() {
@@ -89,5 +90,14 @@ function addVacationUser(user) {
         .then(ids => {
             const id = ids[0];
             return findById(id)
+        })
+}
+
+function update(vacation_id, vacation) {
+    return db('vacations')
+        .where({vacation_id})
+        .update(vacation)
+        .then(count => {
+            return count > 0 ? this.findById(vacation_id) : null
         })
 }

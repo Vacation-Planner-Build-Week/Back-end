@@ -5,7 +5,8 @@ module.exports = {
     find,
     findBy,
     findById,
-    remove
+    remove,
+    update
 };
 
 function find() {
@@ -33,4 +34,13 @@ function remove(activity_id) {
     return db('activities')
         .where({activity_id})
         .del();
+}
+
+function update(activity_id, activity) {
+    return db('activities')
+        .where({activity_id})
+        .update(activity)
+        .then(count => {
+            return count > 0 ? this.findById(activity_id) : null
+        })
 }
