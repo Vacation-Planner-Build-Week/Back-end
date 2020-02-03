@@ -64,4 +64,21 @@ router.delete('/:id', (req, res) => {
         })
 });
 
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+	const updatedComment = req.body;
+	db.update(id, updatedComment)
+        .then(comment => {
+            if (comment) {
+            	res.status(201).json(comment)
+            } else {
+            	res.status(500).json({message: 'Could not update that comment'})
+            }
+        })
+        .catch(error => {
+            console.log('update comment error', error);
+            res.status(500).json({message: 'There was an error updating comment by id.'});
+        });
+});
+
 module.exports = router;

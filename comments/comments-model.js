@@ -5,7 +5,8 @@ module.exports = {
     find,
     findBy,
     findById,
-    remove
+    remove,
+    update
 };
 
 function find() {
@@ -33,4 +34,13 @@ function remove(comment_id) {
     return db('comments')
         .where({comment_id})
         .del();
+}
+
+function update(comment_id, comment) {
+    return db('comments')
+        .where({comment_id})
+        .update(comment)
+        .then(count => {
+            return count > 0 ? this.findById(comment_id) : null
+        })
 }
