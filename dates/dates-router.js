@@ -65,19 +65,20 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-
-	db.remove(id)
-        .then(count => {
-            if (count) {
-            	res.status(200).json({message: 'The date was successfully removed.'})
+    const id = req.params.id;
+	const updatedDate = req.body;
+	db.update(id, updatedDate)
+        .then(date => {
+            if (date) {
+            	res.status(201).json(date)
             } else {
-            	res.status(500).json({message: 'The date could not be removed because it did not exist in the database.'})
+            	res.status(500).json({message: 'Could not update that date'})
             }
         })
         .catch(error => {
-            console.log('delete date error', error);
-            res.status(500).json({message: 'There was an error removing a date.'})
-        })
+            console.log('update date error', error);
+            res.status(500).json({message: 'There was an error updating date by id.'});
+        });
 });
 
 module.exports = router;
