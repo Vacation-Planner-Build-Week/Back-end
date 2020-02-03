@@ -6,7 +6,7 @@ module.exports = {
     findBy,
     findById,
     remove,
-    edit
+    update
 };
 
 function find() {
@@ -36,7 +36,11 @@ function remove(date_id) {
         .del();
 }
 
-function edit(date) {
+function update(date_id, date) {
     return db('dates')
-        .update(date);
+        .where({date_id})
+        .update(date)
+        .then(count => {
+            return count > 0 ? this.findById(date_id) : null
+        })
 }
