@@ -1,3 +1,4 @@
+require('dotenv').config();
 const db = require('../database/dbConfig.js');
 const Users = require('./users-model');
 const cleaner = require('knex-cleaner');
@@ -11,7 +12,7 @@ describe('users model', () => {
 
     describe('test env', () => {
         it('', () => {
-            expect(process.env.DB_ENV).toBe('testing');
+            expect(process.env.DB_ENV).toBe('localtesting');
         });
     });
     describe('insert', () => {

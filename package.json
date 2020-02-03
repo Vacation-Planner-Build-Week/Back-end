@@ -6,6 +6,7 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
+    "localtest": "cross-env DB_ENV=localtesting jest --watch",
     "test": "cross-env DB_ENV=testing jest --watch"
   },
   "jest": {
