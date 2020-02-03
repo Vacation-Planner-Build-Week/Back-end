@@ -6,12 +6,14 @@ exports.up = async function(knex) {
             .references('message_id')
             .inTable('messages')
             .onUpdate('CASCADE')
+            .onDelete('CASCADE')
             .notNullable();
         tbl.integer('user_id')
             .unsigned()
             .references('user_id')
             .inTable('users')
             .onUpdate('CASCADE')
+            .onDelete('CASCADE')
             .notNullable();
         tbl.boolean('sender')
             .defaultTo(false)
