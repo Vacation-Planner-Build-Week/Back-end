@@ -17,7 +17,7 @@ module.exports = {
     testing: {
         client: 'postgresql',
         useNullAsDefault: true,
-        connection: process.env.DATABASE_URL_TESTING,
+        connection:process.env.HEROKU_POSTGRESQL_OLIVE_URL || process.env.DATABASE_URL_TESTING,
         pool: {
             min: 2,
             max: 10
