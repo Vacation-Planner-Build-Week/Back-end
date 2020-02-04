@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:userid/vacations', (req, res) => {
     const userid = req.params.userid;
-    db.findVacationsForUser(userid)
+    db.findAllVacationInfo(userid)
         .then(vacations => {
             if (vacations) {
                 res.status(200).json(vacations);
