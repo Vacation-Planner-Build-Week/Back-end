@@ -72,7 +72,8 @@ function findAllVacationInfo(user_id) {
                     .where({vacation_id});
                 const users = await db('vacations as v')
                     .join('user_vacation as uv', 'v.vacation_id', 'uv.vacation_id')
-                    .select('uv.user_id')
+                    .join('users', 'uv.user_id', 'users.user_id')
+                    .select('uv.user_id', 'users.user_name')
                     .where('uv.vacation_id', vacation_id);
                 return {
                     ...vacation,
@@ -111,15 +112,7 @@ function findAllVacationInfo(user_id) {
 //                                                     .select('uv.user_id')
 //                                                     .where('uv.vacation_id', vacation_id)
 //                                                     .then(users => {
-//                                                         console.log('--------------\n------------\n---------------');
-//                                                         console.log('--------------\n------------\n---------------');
-//                                                         console.log('users\n', users);
-//                                                         console.log('dates\n', dates);
-//                                                         console.log('places\n', places);
-//                                                         console.log('activities\n', activities);
-//                                                         console.log('comments\n', comments);
-//                                                         console.log('--------------\n------------\n---------------');
-//                                                         console.log('--------------\n------------\n---------------');
+//
 //                                                         return {
 //                                                             ...vacation,
 //                                                             comments: comments,
