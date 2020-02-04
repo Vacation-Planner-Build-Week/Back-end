@@ -33,7 +33,7 @@ module.exports = {
     testing: {
         client: 'postgresql',
         useNullAsDefault: true,
-        connection:process.env.HEROKU_POSTGRESQL_OLIVE_URL,
+        connection: process.env.HEROKU_POSTGRESQL_OLIVE_URL,
         pool: {
             min: 2,
             max: 10
