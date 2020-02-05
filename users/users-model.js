@@ -9,7 +9,8 @@ module.exports = {
     findVacationsForUser,
     findUserMessages,
     findUserComments,
-    findAllVacationInfo
+    findAllVacationInfo,
+    findAllUserVacationDataById
 };
 
 function find() {
@@ -32,6 +33,42 @@ function findById(user_id) {
     return db('users')
         .where({user_id})
         .first();
+}
+
+async function findAllUserVacationDataById(user_id) {
+    const user = await db('users').select('user_id', 'user_name').where({user_id}).first();
+    const vacations = await findVacationsForUser(user_id)
+        .then(vacations => {
+            return Promise.all(vacations.map(async vacation => {
+                const {vacation_id} = vacation;
+                const comments = await db('comments')
+                    .where({vacation_id});
+                const activities = await db('activities')
+                    .where({vacation_id});
+                const dates = await db('dates')
+                    .where({vacation_id});
+                const places = await db('places')
+                    .where({vacation_id});
+                const users = await db('vacations as v')
+                    .join('user_vacation as uv', 'v.vacation_id', 'uv.vacation_id')
+                    .join('users', 'uv.user_id', 'users.user_id')
+                    .select('uv.user_id', 'users.user_name')
+                    .where('uv.vacation_id', vacation_id);
+                return {
+                    ...vacation,
+                    comments: comments,
+                    activities: activities,
+                    dates: dates,
+                    places: places,
+                    users: users
+                };
+            }));
+        });
+    return {
+        ...user,
+        vacations: vacations
+    }
+
 }
 
 function remove(user_id) {
