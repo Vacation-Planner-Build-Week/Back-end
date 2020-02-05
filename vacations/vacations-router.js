@@ -114,7 +114,8 @@ router.get('/:id/users', (req, res) => {
 
 router.post('/', (req, res) => {
     const newVacation = req.body;
-    db.add(newVacation)
+    const {user_id} = req.user;
+    db.add(newVacation, user_id)
         .then(vacation => {
             if (vacation) {
                 res.status(200).json(vacation);
