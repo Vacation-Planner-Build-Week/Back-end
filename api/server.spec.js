@@ -14,7 +14,7 @@ describe('server', () => {
 
     describe('test env', () => {
         it('', () => {
-            expect(process.env.DB_ENV).toBe('localtesting');
+            expect(process.env.DB_ENV).toBe('testing');
         });
     });
     it('runs the server', () => {
