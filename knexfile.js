@@ -14,26 +14,10 @@ module.exports = {
         },
     },
 
-    localtesting: {
-        client: 'postgresql',
-        useNullAsDefault: true,
-        connection: process.env.DATABASE_URL_TESTING,
-        pool: {
-            min: 2,
-            max: 10
-        },
-        migrations: {
-            directory: './database/migrations'
-        },
-        seeds: {
-            directory: './database/seeds'
-        }
-    },
-
     testing: {
         client: 'postgresql',
         useNullAsDefault: true,
-        connection: process.env.HEROKU_POSTGRESQL_OLIVE_URL,
+        connection: process.env.DATABASE_URL_TESTING,
         pool: {
             min: 2,
             max: 10
