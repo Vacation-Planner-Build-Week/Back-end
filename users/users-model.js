@@ -65,7 +65,7 @@ async function findAllUserVacationDataById(user_id) {
             }));
         });
     return {
-        ...user,
+        user: user,
         vacations: vacations
     }
 
