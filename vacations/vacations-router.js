@@ -178,4 +178,20 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+router.delete('/:vacation_id/user/:user_id', (req, res) => {
+    const {vacation_id, user_id} = req.params;
+    db.removeVacationUser(vacation_id,user_id)
+        .then(count => {
+            if (count) {
+                res.status(200).json({message: 'The user was successfully removed.'});
+            } else {
+                res.status(500).json({message: 'The user could not be removed because they were not part of that vacation.'});
+            }
+        })
+        .catch(error => {
+            console.log('delete user belonging to a vacation error', error);
+            res.status(500).json({message: 'There was an error removing a user from a vacation.'});
+        });
+});
+
 module.exports = router;
