@@ -12,7 +12,8 @@ module.exports = {
     findVacationDates,
     findVacationUsers,
     addVacationUser,
-    update
+    update,
+    removeVacationUser
 };
 
 function find() {
@@ -51,6 +52,13 @@ function findByIdandTable(id, table, returnId) {
 function remove(vacation_id) {
     return db('vacations')
         .where({vacation_id})
+        .del();
+}
+
+async function removeVacationUser(vacation_id, user_id) {
+    return db('user_vacation')
+        .where({vacation_id})
+        .andWhere({user_id})
         .del();
 }
 

@@ -17,19 +17,25 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    const user_id = req.params.id;
-    db.findAllUserVacationDataById(user_id)
-        .then(user => {
-            if (user) {
-                res.status(200).json(user);
-            } else {
-                res.status(404).json({message: 'There is no user in the database with that id.'});
-            }
-        })
-        .catch(error => {
-            console.log('get user by id error', error);
-            res.status(500).json({message: 'There was an error getting user by id.'});
-        });
+    if (Number(req.params.id) === req.user.user_id) {
+        const user_id = req.params.id;
+
+        db.findAllUserVacationDataById(user_id)
+            .then(userData => {
+                if (userData) {
+                    res.status(200).json(userData);
+                } else {
+                    res.status(404).json({message: 'There is no user in the database with that id.'});
+                }
+            })
+            .catch(error => {
+                console.log('get user by id error', error);
+                res.status(500).json({message: 'There was an error getting user by id.'});
+            });
+    } else {
+        res.status(401).json({message: "The Id you passed is not the logged in user's id."});
+    }
+
 });
 
 router.get('/:userid/vacations', (req, res) => {
@@ -65,8 +71,8 @@ router.get('/:userid/messages', (req, res) => {
 });
 
 router.get('/:userid/comments', (req, res) => {
-	const userid = req.params.userid;
-	db.findUserComments(userid)
+    const userid = req.params.userid;
+    db.findUserComments(userid)
         .then(comments => {
             if (comments) {
                 res.status(200).json(comments);
@@ -79,7 +85,6 @@ router.get('/:userid/comments', (req, res) => {
             res.status(500).json({message: 'There was an error getting comments by user_id.'});
         });
 });
-
 
 
 module.exports = router;
