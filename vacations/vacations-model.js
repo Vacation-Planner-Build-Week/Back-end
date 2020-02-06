@@ -75,9 +75,10 @@ function findVacationDates(vacation_id) {
 }
 
 function findVacationUsers(vacation_id) {
-    return db('vacations as v')
-        .join('user_vacation as uv', 'v.vacation_id', 'uv.vacation_id')
-        .select('uv.user_id')
+    return db('user_vacation as uv')
+        .join('user_vacation as v', 'v.vacation_id', 'uv.vacation_id')
+        .join('users as u', 'uv.user_id', 'u.user_id')
+        .select('uv.user_id','u.user_name')
         .where('uv.vacation_id', vacation_id);
 }
 
