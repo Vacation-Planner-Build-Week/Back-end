@@ -38,6 +38,22 @@ router.get('/:id', (req, res) => {
 
 });
 
+router.get('/sender/:id', (req, res) => {
+        const user_id = req.params.id;
+        db.findBy({user_id})
+            .then(user => {
+                if (user) {
+                    res.status(200).json(user);
+                } else {
+                    res.status(404).json({message: 'There is no user in the database with that id.'});
+                }
+            })
+            .catch(error => {
+                console.log('get user by id error', error);
+                res.status(500).json({message: 'There was an error getting user by id.'});
+            });
+});
+
 router.get('/:userid/vacations', (req, res) => {
     const userid = req.params.userid;
     db.findAllVacationInfo(userid)
