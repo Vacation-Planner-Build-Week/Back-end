@@ -145,10 +145,13 @@ describe('server', () => {
                     expect(user.user_id).toBeDefined();
                     expect(vacations).toBeDefined();
                     expect(vacations).toHaveLength(2);
+
                     expect(user.user_name).toBe('jacob');
                     expect(user.user_id).toBe(1);
+
                     expect(vacations[0].vacation_id).toBe(1);
                     expect(vacations[0].vacation_name).toBe('summer');
+
                     expect(comments).toBeDefined();
                     expect(comments).toHaveLength(1);
                     expect(comments[0].comment_id).toBe(1);
@@ -190,5 +193,6 @@ describe('server', () => {
                     expect(dates[1].vacation_id).toBe(1);
                 });
         });
+
     });
 });
